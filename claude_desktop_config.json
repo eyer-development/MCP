@@ -1,0 +1,17 @@
+{
+  "mcpServers": {
+    "Eyer": {
+      "command": "node",
+      "args": ["complete_path_to_Eyer_MCP_server_folder/mcpServer.js"]
+    },
+	  "filesystem": {
+      "command": "npx",
+      "args": [
+        "-y",
+        "@modelcontextprotocol/server-filesystem",
+        "/Users/username/Downloads/Claude",
+		"/example/path"
+      ]
+    }
+  }
+}
