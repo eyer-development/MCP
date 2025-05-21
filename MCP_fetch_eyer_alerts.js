@@ -1,8 +1,9 @@
 //--------------------------------------------------------------------------------------------
 // ** Eyer javascript code to fetch all unread anomalies once per minute and store to disk **
 // 
-// Replace the "const token" with your apiTokenRead
-// Replace "path" and "path_last" with the path to the folder where you granted Claude access
+// Replace the "const token" with your apiReadToken
+// Replace "path" with the path to the folder where you granted Claude access.Make sure to end
+// the path with a "/"
 // -------------------------------------------------------------------------------------------
 
 
@@ -10,6 +11,7 @@ const fs = require('fs');
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const url = 'https://boomi.eyer.ai/api/v2/anomalies/unread';
+const path = 'path_to_folder_for_Claude';
 const token = 'apiTokenRead';
 
 async function fetchAlerts() {
@@ -28,13 +30,13 @@ async function fetchAlerts() {
  
     var currentHour = new Date().getHours();
     var pastHour = new Date().getHours() - 6;
-    var path = ('your_selected_path/eyer_alerts' + currentHour + '.json'); //change to your path
-    var path_last = ('your_selected_path/eyer_alerts' + pastHour + '.json'); //change to your path
+    var write_path = (path + 'eyer_alerts' + currentHour + '.json');
+    var delete_path = (path + 'eyer_alerts' + pastHour + '.json');
 
      // Read existing data (if file exists)
      let existing = [];
-     if (fs.existsSync(path)) {
-       const content = fs.readFileSync(path, 'utf8');
+     if (fs.existsSync(write_path)) {
+       const content = fs.readFileSync(write_path, 'utf8');
        try {
          existing = JSON.parse(content);
          if (!Array.isArray(existing)) {
@@ -49,9 +51,9 @@ async function fetchAlerts() {
      const toAppend = Array.isArray(data) ? data : [data];
      const combined = [...existing, ...toAppend];
  
-     fs.writeFileSync(path, JSON.stringify(combined, null, 2));
+     fs.writeFileSync(write_path, JSON.stringify(combined, null, 2));
      try {
-     fs.unlinkSync(path_last);
+     fs.unlinkSync(delete_path);
      } catch (err) {
         if (err.code !== 'ENOENT') {} else {}
       }
