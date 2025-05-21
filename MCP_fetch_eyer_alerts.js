@@ -1,8 +1,8 @@
 //--------------------------------------------------------------------------------------------
 // ** Eyer javascript code to fetch all unread anomalies once per minute and store to disk **
 // 
-// Replace the "const token" with your apiReadToken
-// Replace "path" with the path to the folder where you granted Claude access
+// Replace the "const token" with your apiTokenRead
+// Replace "path" and "path_last" with the path to the folder where you granted Claude access
 // -------------------------------------------------------------------------------------------
 
 
@@ -10,7 +10,7 @@ const fs = require('fs');
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 const url = 'https://boomi.eyer.ai/api/v2/anomalies/unread';
-const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJFeWVyIiwiaWF0IjoxNDcsImV4cCI6MTQ3LCJhdWQiOiJib29taS5leWVyLmFpICIsInN1YiI6Im1hcml1c0BleWVyLmFpIiwiUm9sZSI6InJlYWQiLCJDb21wYW55IjoiRXllck5ldyJ9.7yuOuY46G6sEr2n_j3GfMoVikU8l2uGywLZVjitxZS4';
+const token = 'apiTokenRead';
 
 async function fetchAlerts() {
   try {
@@ -28,8 +28,8 @@ async function fetchAlerts() {
  
     var currentHour = new Date().getHours();
     var pastHour = new Date().getHours() - 6;
-    var path = ('/Users/mariusstorsten/Downloads/Claude/eyer_alerts' + currentHour + '.json');
-    var path_last = ('/Users/mariusstorsten/Downloads/Claude/eyer_alerts' + pastHour + '.json');
+    var path = ('your_selected_path/eyer_alerts' + currentHour + '.json'); //change to your path
+    var path_last = ('your_selected_path/eyer_alerts' + pastHour + '.json'); //change to your path
 
      // Read existing data (if file exists)
      let existing = [];
