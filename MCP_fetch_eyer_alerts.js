@@ -1,7 +1,7 @@
 //--------------------------------------------------------------------------------------------
 // ** Eyer javascript code to fetch all unread anomalies once per minute and store to disk **
 // 
-// Replace the "const token" with your apiReadToken
+// Replace the "const token" with your apiTokenRead
 // Replace "path" with the path to the folder where you granted Claude access.Make sure to end
 // the path with a "/"
 // -------------------------------------------------------------------------------------------
